@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minitalk.h"
+#include "../includes/minitalk_bonus.h"
 
 static int	ft_atol(const char *str)
 {
@@ -55,30 +55,29 @@ static void	send_char(int pid, unsigned char c)
 
 void	confirm(int sign)
 {
-	if (sign == SIGUSR1)
+	if (sign == SIGUSR2)
 		ft_printf("Message received\n");
-	else
-		ft_printf("Error: message not received\n");
 }
 
 int	main(int ac, char **av)
 {
-	int			pid;
-	int			i;
-	unsigned char *msg;
+	int				pid;
+	int				i;
+	unsigned char	*msg;
 
-	i = 0;
 	if (ac == 3)
 	{
+		signal(SIGUSR2, confirm);
 		pid = ft_atol(av[1]);
 		msg = (unsigned char *)av[2];
+		i = 0;
 		while (msg[i])
 		{
 			send_char(pid, msg[i]);
 			i++;
 		}
-		signal(SIGUSR2, confirm);
 		send_char(pid, '\0');
+		pause();
 	}
 	else
 	{

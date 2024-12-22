@@ -1,29 +1,23 @@
-NAMEC = client
-NAMES = server
+NAMEC 		= client
+NAMES 		= server
 BONUS_NAMEC = client_bonus
 BONUS_NAMES = server_bonus
 
 PRINTF = libftprintf.a
 
-SRCC_FILES =	client.c
-SRCS_FILES =	server.c
-BONUSC_FILES = client_bonus.c 
-BONUSS_FILES = server_bonus.c
+SRCC_FILES   =	srcs/client.c
+SRCS_FILES   =	srcs/server.c
+BONUSC_FILES =  srcs/client_bonus.c 
+BONUSS_FILES =  srcs/server_bonus.c
 
-SRC_DIR = srcs/
-SRCC = $(addprefix $(SRC_DIR), $(SRCC_FILES))
-SRCS = $(addprefix $(SRC_DIR), $(SRCS_FILES))
-BONUSC = $(addprefix $(SRC_DIR), $(BONUSC_FILES))
-BONUSS = $(addprefix $(SRC_DIR), $(BONUSS_FILES))
-
-OBJC = ${SRCC:.c=.o}
-OBJS = ${SRCS:.c=.o}
-OBJBC = ${BONUSC:.c=.o}
-OBJBS = ${BONUSS:.c=.o}
+OBJC  =  srcs/client.o
+OBJS  =  srcs/server.o
+OBJBC = srcs/client_bonus.o
+OBJBS = srcs/server_bonus.o
 
 CC			= cc
 CFLAGS		= -Wall -Werror -Wextra
-INCLUDE = -I include
+INCLUDE 	= -I include
 RM = rm -rf
 
 all:	$(NAMEC) $(NAMES)

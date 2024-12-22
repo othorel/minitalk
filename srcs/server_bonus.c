@@ -10,31 +10,50 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minitalk.h"
+#include "../includes/minitalk_bonus.h"
+
+static void	reset_message(char *msg, int *index)
+{
+	msg[*index] = '\0';
+	ft_printf("Received message : %s\n", msg);
+	*index = 0;
+}
+
+static void	append_to_buffer(char byte, char *msg, int *index)
+{
+	msg[*index] = byte;
+	(*index)++;
+	if (*index >= 1024)
+	{
+		ft_printf("Error : message too long.\n");
+		*index = 0;
+	}
+}
 
 void	handler(int sign, siginfo_t *info, void *context)
 {
-	static int				i;
-	static int				bit;
-	static unsigned char	buffer[4];
-	static int				index;
+	static int		bit;
+	static char		byte;
+	static char		msg[1024];
+	static int		index;
 
 	(void)context;
 	if (sign == SIGUSR1)
-		i |= (0x01 << bit);
+		byte |= (0x01 << bit);
 	bit++;
 	if (bit == 8)
 	{
-		buffer[index] = i;
-		index++;
-		if (index == 4 || i == 0)
+		if (byte == '\0')
 		{
-			ft_printf("%s", buffer);
-			index = 0;
-			kill(info->si_pid, SIGUSR1);
+			reset_message(msg, &index);
+			kill(info->si_pid, SIGUSR2);
+		}
+		else
+		{
+			append_to_buffer(byte, msg, &index);
 		}
 		bit = 0;
-		i = 0;
+		byte = 0;
 	}
 }
 
@@ -50,10 +69,10 @@ int	main(int ac, char **av)
 		return (1);
 	}
 	pid = getpid();
-	ft_printf("Server PID: %d\n", pid);
+	ft_printf("Server PID : %d\n", pid);
 	act.sa_sigaction = handler;
 	sigemptyset(&act.sa_mask);
-	act.sa_flags = 0;
+	act.sa_flags = SA_SIGINFO;
 	while (ac == 1)
 	{
 		sigaction(SIGUSR1, &act, NULL);
