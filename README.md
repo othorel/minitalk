@@ -97,4 +97,25 @@ In another terminal window, run the client with this command, replacing <server_
 The client will send the message to the server bit by bit.
 
 ---
+## 🧪 Testing
 
+To test the correct functionality of Minitalk, you can run the following:
+
+Server Output:
+```bash
+$ ./server
+Server PID: 12345
+```
+Client Command:
+```bash
+$ ./client 12345 "Hello, server!"
+```
+Server Output (after receiving the message):
+```bash
+received message: Hello, server!
+```
+---
+## 🤝 Contributing
+If you'd like to contribute to this project, feel free to fork the repository, make your changes, and submit a pull request!
+
+---
