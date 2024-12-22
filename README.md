@@ -76,4 +76,25 @@ Use the **Makefile** to compile the project.
   ```bash
   make re
   ```
+---
+
+## 💻 Usage
+
+Once compiled, you can use the client and server as follows:
+
+Run the Server
+In one terminal window, run the server with this command:
+```bash
+./server
+```
+The server will display its PID (process ID), which is needed by the client to send messages.
+
+Run the Client
+In another terminal window, run the client with this command, replacing <server_pid> with the server's PID:
+```bash
+./client <server_pid> "Hello, server!"
+```
+The client will send the message to the server bit by bit.
+
+---
 
