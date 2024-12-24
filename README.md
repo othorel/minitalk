@@ -8,11 +8,6 @@ Welcome to **Minitalk**, a C project that implements a communication system betw
 
 ---
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/42ProjectBadges/main/badges/42-42badge.png" />
-</p>
-
----
 ## 📋 Project Overview
 
 | **Category**               | **Functions**                                                                                                                                 |
